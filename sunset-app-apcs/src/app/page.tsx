@@ -30,7 +30,7 @@ export default function Home() {
                 <div className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
                     <LinkedAlertComponent stateHeader={"Clouds"} state={clouds}/>
                     <LinkedAlertComponent stateHeader={"Humidity"} state={humidity}/>
-                    <Button onClick={}>Call Api</Button>
+
                 </div>
             </main>
         </div>
