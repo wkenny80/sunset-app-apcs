@@ -9,7 +9,7 @@ import {getWeather} from "@/lib/weatherUtils";
 export default function Home() {
     const [displayVariable, setDisplayVariable] = useState<string>("");
     const [forecast, setForecast] = useState<string>("");
-    const [clouds, setClouds] = useState<boolean>();
+    const [clouds, setClouds] = useState<number>(-1);
     const [humidity, setHumidity] = useState<number>(-1);
     const [temp, setTemp] = useState<number>(-1);
     return (
@@ -37,56 +37,15 @@ export default function Home() {
                     <LinkedAlertComponent stateHeader={"Temp"} state={temp}/>
                     <Button onClick={async () => {
                         const weather = await getWeather();
-                        /*
-                        detailedForecast
-:
-"Mostly sunny. High near 65, with temperatures falling to around 60 in the afternoon. North northwest wind around 3 mph."
-endTime
-:
-"2024-12-10T18:00:00-08:00"
-icon
-:
-"https://api.weather.gov/icons/land/day/sct?size=medium"
-isDaytime
-:
-true
-name
-:
-"Today"
-number
-:
-1
-probabilityOfPrecipitation
-:
-{unitCode: 'wmoUnit:percent', value: null}
-shortForecast
-:
-"Mostly Sunny"
-startTime
-:
-"2024-12-10T11:00:00-08:00"
-temperature
-:
-65
-temperatureTrend
-:
-""
-temperatureUnit
-:
-"F"
-windDirection
-:
-"NNW"
-windSpeed
-:
-"3 mph"
-                         */
-                        console.log(weather)
-                        setForecast(weather.detailedForecast);
-                        setClouds(weather.shortForecast);
-                        setTemp(weather.temperature);
+                        setForecast(weather.weatherRes.detailedForecast);
+                        setClouds(weather.secondaryWeatherRes.clouds.all);
+                        setTemp(weather.weatherRes.temperature);
+                        setHumidity(weather.secondaryWeatherRes.main.humidity);
                     }}>btn</Button>
                 </div>
+            </main>
+            <main className="flex flex-row gap-16 row-start-2 items-center sm:items-start">
+
             </main>
         </div>
 );
